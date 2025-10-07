@@ -6,10 +6,6 @@
   direction: rtl;
 }
 
-[dir="rtl"] .flex {
-  flex-direction: row-reverse;
-}
-
 [dir="rtl"] .text-left {
   text-align: right;
 }
