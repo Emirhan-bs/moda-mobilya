@@ -10,8 +10,9 @@ export default function Footer() {
     <footer className="bg-gray-900 text-white mt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* SOL BLOK */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Cadde Spot</h3>
+            <h3 className="text-xl font-bold mb-4">Isparta Moda Mobilya</h3>
             <p className="text-gray-400">
               {language === "tr"
                 ? "Isparta'nın güvenilir spot merkezi"
@@ -24,12 +25,15 @@ export default function Footer() {
                 : "Ispartas vertrauenswürdiger Laden"}
             </p>
           </div>
+
+          {/* ORTA BLOK */}
           <div>
             <h4 className="text-lg font-semibold mb-4">{t.footer.contact}</h4>
             <div className="space-y-2 text-gray-400">
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                <span>{t.footer.phone}</span>
+                {/* Burada değişiklik yaptık */}
+                <span dangerouslySetInnerHTML={{ __html: t.footer.phone }} />
               </div>
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
@@ -37,6 +41,8 @@ export default function Footer() {
               </div>
             </div>
           </div>
+
+          {/* SAĞ BLOK */}
           <div>
             <h4 className="text-lg font-semibold mb-4">
               {language === "tr"
@@ -62,9 +68,11 @@ export default function Footer() {
             </p>
           </div>
         </div>
+
+        {/* ALT KISIM */}
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
           <p>
-            &copy; 2025 Cadde Spot.{" "}
+            &copy; 2025 Isparta Moda Mobilya.{" "}
             {language === "tr"
               ? "Tüm hakları saklıdır."
               : language === "en"

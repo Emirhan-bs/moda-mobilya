@@ -23,8 +23,8 @@ export default function Header() {
             >
               <img
                 src={logo}
-                alt="Cadde Spot Logo"
-                className="h-14 w-auto"
+                alt="Isparta Moda Mobilya Logo"
+                className="h-16 w-auto"
                 loading="lazy"
               />
             </NavLink>
