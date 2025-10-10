@@ -23,7 +23,7 @@ export const items: Item[] = [
     brand: '',
     condition: 'Yeni',
     images: [
-      '/public/assets/products/cek-yat/cek1.jpeg', '/public/assets/products/cek-yat/cek2.jpeg',
+      '/assets/products/cek-yat/cek1.jpeg', '/assets/products/cek-yat/cek2.jpeg',
 
 
     ],
@@ -51,7 +51,7 @@ export const items: Item[] = [
     brand: 'Özel Üretim',
     condition: 'Sıfır',
     images: [
-      '/public/assets/products/baza/baza.jpeg',
+      '/assets/products/baza/baza.jpeg',
     ],
   },
   {
@@ -76,7 +76,7 @@ export const items: Item[] = [
     brand: 'Özel Üretim',
     condition: 'Çok İyi',
     images: [
-      '/public/assets/products/mavi-l-koltuk/blue.jpeg',
+      '/assets/products/mavi-l-koltuk/blue.jpeg',
     ],
   }, {
     "id": 4,
@@ -100,8 +100,8 @@ export const items: Item[] = [
     "brand": "Moda Mobilya",
     "condition": "Yeni",
     "images": [
-      "/public/assets/products/ekmeklik/bread1.jpeg",
-      "/public/assets/products/ekmeklik/bread2.jpeg",
+      "/assets/products/ekmeklik/bread1.jpeg",
+      "/assets/products/ekmeklik/bread2.jpeg",
 
     ]
   }
