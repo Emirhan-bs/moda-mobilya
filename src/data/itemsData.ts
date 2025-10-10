@@ -78,7 +78,34 @@ export const items: Item[] = [
     images: [
       '/public/assets/products/mavi-l-koltuk/WhatsApp Image 2025-10-08 at 12.46.36 (2).jpeg',
     ],
-  },
+  }, {
+    "id": 4,
+    "slug": "ekmelik-dolap",
+    "title": {
+      "tr": "Çok Amaçlı Ekmelik Dolap",
+      "en": "Multi-Purpose Bread Cabinet",
+      "ar-sy": "خزانة خبز متعددة الاستخدامات",
+      "ru": "Многофункциональный шкаф для хлеба",
+      "de": "Multifunktionaler Brotschrank"
+    },
+    "description": {
+      "tr": "Modern tasarımıyla hem mutfağa hem salona uyum sağlar. Farklı renk seçenekleriyle düzeni ve şıklığı bir arada sunar. Yeni ve kullanıma hazırdır.",
+      "en": "With its modern design, it fits perfectly in both kitchens and living rooms. Available in different color options, combining organization and elegance. Brand new and ready to use.",
+      "ar-sy": "بتصميم عصري يناسب المطبخ أو غرفة المعيشة. متوفر بعدة ألوان ويجمع بين التنظيم والأناقة. جديد وجاهز للاستخدام.",
+      "ru": "Современный дизайн, подходит как для кухни, так и для гостиной. Доступен в разных цветах, сочетает порядок и стиль. Новый и готов к использованию.",
+      "de": "Mit modernem Design passt er sowohl in die Küche als auch ins Wohnzimmer. In verschiedenen Farben erhältlich – kombiniert Ordnung und Eleganz. Neu und einsatzbereit."
+    },
+    "price": "₺2.500",
+    "category": "Mobilya",
+    "brand": "Moda Mobilya",
+    "condition": "Yeni",
+    "images": [
+      "/public/assets/products/ekmeklik/WhatsApp Image 2025-10-10 at 18.49.48.jpeg",
+      "/public/assets/products/ekmeklik/WhatsApp Image 2025-10-10 at 18.49.48 (1).jpeg",
+
+    ]
+  }
+
 
 ];
 

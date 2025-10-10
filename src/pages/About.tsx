@@ -1,6 +1,6 @@
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations";
-import { MapPin, Phone } from "lucide-react";
+import { MapPin, Phone, Instagram } from "lucide-react";
 
 export default function About() {
   const { language } = useLanguage();
@@ -40,9 +40,9 @@ export default function About() {
         </div>
 
         {/* İletişim ve Adres Kartları */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           {/* İletişim Kartı */}
-          <div className="bg-white rounded-xl shadow-lg p-8">
+          <div className="bg-white rounded-xl shadow-lg p-10">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center">
                 <Phone className="w-6 h-6 text-white" />
@@ -60,8 +60,8 @@ export default function About() {
               </h3>
             </div>
 
-            <div className="space-y-3 text-gray-700">
-              {/* Telefon */}
+            <div className="space-y-4 text-gray-700 text-lg leading-relaxed break-words">
+              {/* Telefonlar */}
               <p className="font-medium">
                 <a
                   href="tel:+905375545742"
@@ -80,19 +80,29 @@ export default function About() {
               </p>
 
               {/* WhatsApp */}
-              <p>
+              <p className="break-words">
                 <a
                   href="https://wa.me/905375545742"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-green-600 hover:underline"
                 >
-                  💬 WhatsApp: 0537 554 57 42
+                  💬 WhatsApp: 0537 554 57 42 - İlyas Büyüksenirli
+                </a>
+              </p>
+              <p className="break-words">
+                <a
+                  href="https://wa.me/905455714541"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-green-600 hover:underline"
+                >
+                  💬 WhatsApp: 0545 571 45 41 - Mehmet Gün
                 </a>
               </p>
 
               {/* Email */}
-              <p>
+              <p className="break-words">
                 <a
                   href="mailto:info@ispartamodamobilya.com"
                   className="text-blue-500 hover:underline"
@@ -100,11 +110,24 @@ export default function About() {
                   ✉️ ispartamodamobilya@gmail.com
                 </a>
               </p>
+
+              {/* Instagram */}
+              <p className="break-words">
+                <a
+                  href="https://www.instagram.com/ispartamodamobilya"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-pink-600 hover:underline font-medium"
+                >
+                  <Instagram className="w-5 h-5" />
+                  @ispartamodamobilya
+                </a>
+              </p>
             </div>
           </div>
 
           {/* Adres + Harita Kartı */}
-          <div className="bg-white rounded-xl shadow-lg p-8">
+          <div className="bg-white rounded-xl shadow-lg p-10">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center">
                 <MapPin className="w-6 h-6 text-white" />
@@ -122,25 +145,24 @@ export default function About() {
               </h3>
             </div>
 
-            <div className="space-y-2 text-gray-700 mb-4">
+            <div className="space-y-3 text-gray-700 mb-4 text-lg">
               <p className="font-medium">
                 Yayla, 1607. Sk. No:4, 32100 Isparta Merkez/Isparta, Türkiye
               </p>
               <p>
                 {language === "tr"
-                  ? "Pazartesi - Cumartesi"
+                  ? "Pazartesi - Pazar"
                   : language === "en"
-                  ? "Monday - Saturday"
+                  ? "Monday - Sunday"
                   : language === "ar-sy"
-                  ? "الاثنين - السبت"
+                  ? "الاثنين - الأحد"
                   : language === "ru"
-                  ? "Понедельник - Суббота"
-                  : "Montag - Samstag"}
+                  ? "Понедельник - Воскресенье"
+                  : "Montag - Sonntag"}
               </p>
               <p>09:00 - 19:00</p>
             </div>
 
-            {/* Google Maps Embed */}
             <iframe
               title="Isparta Moda Mobilya Konumu"
               src="https://www.google.com/maps?q=Yayla%2C+1607.+Sk.+No%3A4%2C+32100+Isparta+Merkez%2FIsparta%2C+Türkiye&output=embed"
@@ -154,7 +176,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* Avantajlar Bölümü */}
+        {/* Avantajlar */}
         <div className="mt-12 bg-gray-50 rounded-xl p-8">
           <h2 className="text-2xl font-bold mb-4 text-center">
             {language === "tr"
@@ -173,36 +195,24 @@ export default function About() {
               {
                 tr: "Kalite Garantisi",
                 en: "Quality Guarantee",
-                ar: "ضمان الجودة",
-                ru: "Гарантия качества",
-                de: "Qualitätsgarantie",
                 descTr: "Her ürün detaylı inceleme ve testten geçer",
                 descEn: "Every item undergoes detailed inspection and testing",
               },
               {
                 tr: "Uygun Fiyatlar",
                 en: "Affordable Prices",
-                ar: "أسعار معقولة",
-                ru: "Доступные цены",
-                de: "Günstige Preise",
                 descTr: "Piyasanın en uygun fiyatlarını sunuyoruz",
                 descEn: "We offer the most competitive prices in the market",
               },
               {
                 tr: "Geniş Ürün Yelpazesi",
                 en: "Wide Product Range",
-                ar: "مجموعة واسعة من المنتجات",
-                ru: "Широкий ассортимент",
-                de: "Breite Produktpalette",
                 descTr: "Mobilyadan elektroniğe, beyaz eşyadan dekorasyona",
                 descEn: "From furniture to electronics, appliances to decor",
               },
               {
                 tr: "Yerel Hizmet",
                 en: "Local Service",
-                ar: "خدمة محلية",
-                ru: "Местное обслуживание",
-                de: "Lokaler Service",
                 descTr: "Isparta'da yıllardır güvenilir hizmet",
                 descEn: "Trusted service in Isparta for years",
               },
@@ -211,15 +221,7 @@ export default function About() {
                 <div className="w-2 h-2 bg-gray-900 rounded-full mt-2"></div>
                 <div>
                   <h4 className="font-semibold mb-1">
-                    {language === "tr"
-                      ? item.tr
-                      : language === "en"
-                      ? item.en
-                      : language === "ar-sy"
-                      ? item.ar
-                      : language === "ru"
-                      ? item.ru
-                      : item.de}
+                    {language === "tr" ? item.tr : item.en}
                   </h4>
                   <p className="text-gray-600">
                     {language === "tr" ? item.descTr : item.descEn}

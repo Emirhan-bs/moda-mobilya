@@ -1,6 +1,6 @@
 import { useLanguage } from "../context/LanguageContext";
 import { translations } from "../i18n/translations";
-import { Phone, MapPin } from "lucide-react";
+import { Phone, MapPin, Instagram } from "lucide-react";
 
 export default function Footer() {
   const { language } = useLanguage();
@@ -13,17 +13,28 @@ export default function Footer() {
           {/* SOL BLOK */}
           <div>
             <h3 className="text-xl font-bold mb-4">Isparta Moda Mobilya</h3>
-            <p className="text-gray-400">
+            <p className="text-gray-400 mb-3">
               {language === "tr"
-                ? "Isparta'nın güvenilir spot merkezi"
+                ? "Isparta'nın güvenilir spot ve mobilya merkezi."
                 : language === "en"
-                ? "Isparta's trusted second-hand store"
+                ? "Isparta's trusted furniture and second-hand store."
                 : language === "ar-sy"
-                ? "متجر إسبرطة الموثوق للسلع المستعملة"
+                ? "المتجر الموثوق للأثاث والسلع المستعملة في إسبرطة."
                 : language === "ru"
-                ? "Надежный магазин Испарты"
-                : "Ispartas vertrauenswürdiger Laden"}
+                ? "Надежный мебельный и комиссионный магазин в Испарте."
+                : "Ispartas vertrauenswürdiger Möbel- und Gebrauchtwarenladen."}
             </p>
+
+            {/* Instagram bağlantısı */}
+            <a
+              href="https://www.instagram.com/ispartamodamobilya"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+            >
+              <Instagram className="w-5 h-5" />
+              <span>@ispartamodamobilya</span>
+            </a>
           </div>
 
           {/* ORTA BLOK */}
@@ -32,7 +43,6 @@ export default function Footer() {
             <div className="space-y-2 text-gray-400">
               <div className="flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                {/* Burada değişiklik yaptık */}
                 <span dangerouslySetInnerHTML={{ __html: t.footer.phone }} />
               </div>
               <div className="flex items-center gap-2">

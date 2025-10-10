@@ -13,6 +13,9 @@ export default function ItemDetail() {
   const [isZoomed, setIsZoomed] = useState(false);
 
   const item = items.find((i) => i.slug === slug);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [slug]);
 
   const relatedItems = useMemo(() => {
     if (!item) return [];
