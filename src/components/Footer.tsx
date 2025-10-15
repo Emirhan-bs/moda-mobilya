@@ -79,6 +79,28 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* --- SEO AÇIKLAMA BLOĞU --- */}
+        <div className="mt-12 text-gray-400 text-sm leading-relaxed border-t border-gray-800 pt-6">
+          <h2 className="sr-only">Isparta Spot ve İkinci El Eşya Hakkında</h2>
+          <p>
+            <strong>Isparta Moda Mobilya</strong> (eski Cadde Spot), Isparta'da{" "}
+            <strong>spot</strong> ve <strong>ikinci el eşya</strong> alım satımı
+            yapan güvenilir bir mağazadır. Kaliteli{" "}
+            <strong>mobilya, beyaz eşya ve elektronik ürünler</strong> geniş
+            ürün yelpazesiyle uygun fiyatlara sunulur. Ürünleri yerinde görmek
+            için mağazamızı ziyaret edebilir veya{" "}
+            <a
+              href="https://wa.me/905455714541"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-white"
+            >
+              WhatsApp
+            </a>{" "}
+            üzerinden iletişime geçebilirsiniz.
+          </p>
+        </div>
+
         {/* ALT KISIM */}
         <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
           <p>
