@@ -333,7 +333,180 @@ export const items: Item[] = [
       '/assets/products/verona-deluxe-koltuk-takimi/verona-deluxe-koltuk-takimi-1.png',
       '/assets/products/verona-deluxe-koltuk-takimi/verona-deluxe-koltuk-takimi-2.png'
     ],
+  }, {
+    id: 12,
+    slug: 'luna-gardirop',
+    title: {
+      tr: 'Luna Gardırop',
+      en: 'Luna Wardrobe',
+      'ar-sy': 'خزانة لونا',
+      ru: 'Шкаф Luna',
+      de: 'Luna Kleiderschrank',
+    },
+    description: {
+      tr: 'İkinci el, temiz kullanılmış Luna Gardırop. Parlak beyaz yüzeyi ve sade tasarımıyla modern yaşam alanlarına zarif bir görünüm kazandırır. Geniş iç hacmi ve sağlam yapısıyla uzun ömürlü bir depolama çözümüdür. Her dekorasyona kolayca uyum sağlar.',
+      en: 'Second-hand, well-maintained Luna Wardrobe. With its glossy white finish and simple design, it adds an elegant touch to modern living spaces. Its spacious interior and solid build make it a durable storage solution that fits easily into any decor.',
+      'ar-sy': 'خزانة لونا مستعملة بحالة جيدة جدًا. بسطح أبيض لامع وتصميم بسيط تضيف لمسة من الأناقة إلى المساحات العصرية. توفر مساحة داخلية واسعة وبنية قوية للاستخدام الطويل الأمد.',
+      ru: 'Шкаф Luna б/у, в отличном состоянии. Глянцевая белая поверхность и минималистичный дизайн придают современным интерьерам элегантный вид. Прочное строение и просторное внутреннее пространство делают его удобным и долговечным решением для хранения.',
+      de: 'Gebrauchter Luna Kleiderschrank in sehr gutem Zustand. Mit glänzender weißer Oberfläche und schlichtem Design verleiht er modernen Wohnräumen eine elegante Note. Dank stabilem Aufbau und großzügigem Innenraum ist er eine langlebige Aufbewahrungslösung.'
+    },
+    price: '₺8.500',
+    category: 'Mobilya',
+    brand: '',
+    condition: '2. El',
+    images: [
+      '/assets/products/luna-gardirop/luna-gardirop-one.png',
+      '/assets/products/luna-gardirop/luna-gardirop-two.png'
+    ],
+    keywords: [
+      'luna gardırop',
+      'ikinci el gardırop',
+      'beyaz gardırop',
+      'modern gardırop',
+      'kullanılmış dolap'
+    ],
+    metaDescription: 'İkinci el Luna Gardırop, parlak beyaz yüzeyi ve sade tasarımıyla modern yaşam alanlarına zarif bir görünüm kazandırır. Temiz kullanılmış ve sağlam yapısıyla uzun ömürlü bir depolama çözümüdür.'
+  }, {
+    id: 14,
+    slug: 'lunaria-gardirop',
+    title: {
+      tr: 'Lunaria Gardırop',
+      en: 'Lunaria Wardrobe',
+      'ar-sy': 'خزانة لوناريا',
+      ru: 'Шкаф Lunaria',
+      de: 'Lunaria Kleiderschrank',
+    },
+    description: {
+      tr: 'İkinci el, iyi durumda Lunaria Gardırop. Parlak beyaz yüzeyi ve ayna görünümlü zarif desen detaylarıyla modern ve ferah bir atmosfer oluşturur. Sürgülü kapak sistemiyle kullanım kolaylığı sunar. Geniş iç hacmi, askılık bölmeleri ve raf düzeniyle hem estetik hem işlevsel bir depolama çözümüdür.',
+      en: 'Second-hand Lunaria Wardrobe in good condition. Its glossy white surface and elegant mirror-pattern details create a bright, modern atmosphere. The sliding door system ensures ease of use, while the spacious interior with shelves and hanging sections offers both style and practicality.',
+      'ar-sy': 'خزانة لوناريا مستعملة بحالة جيدة، بسطح أبيض لامع وتفاصيل زخرفية أنيقة على الأبواب المنزلقة. توفر مساحة داخلية واسعة مع رفوف وأماكن تعليق، مما يجعلها عملية وجميلة في الوقت نفسه.',
+      ru: 'Шкаф Lunaria б/у, в хорошем состоянии. Глянцевая белая поверхность и зеркальные декоративные элементы придают современный и светлый вид. С раздвижными дверцами, просторным внутренним пространством и удобными полками – это стильное и функциональное решение для хранения.',
+      de: 'Gebrauchter Lunaria Kleiderschrank in gutem Zustand. Mit glänzender weißer Oberfläche und eleganten Spiegelelementen verleiht er dem Raum ein modernes und helles Ambiente. Das Schiebetürsystem und der großzügige Innenraum mit Regalen und Kleiderstangen bieten Funktionalität und Stil zugleich.'
+    },
+    price: '₺8.500',
+    category: 'Mobilya',
+    brand: '',
+    condition: '2. El',
+    images: [
+      '/assets/products/lunaria-gardirop/white-1.png',
+      '/assets/products/lunaria-gardirop/white-2.png',
+      '/assets/products/lunaria-gardirop/white-3.png',
+      '/assets/products/lunaria-gardirop/white-4.png'
+    ],
+    keywords: [
+      'lunaria gardırop',
+      'ayna desenli gardırop',
+      'sürgülü kapaklı gardırop',
+      'beyaz gardırop',
+      'ikinci el dolap'
+    ],
+    metaDescription: 'Lunaria Gardırop, ayna desenli kapakları ve parlak beyaz yüzeyiyle dikkat çeken zarif bir modeldir. İkinci el, temiz durumda ve geniş iç hacimli bir depolama çözümü.'
+  }, {
+    id: 15,
+    slug: 'lux-sandikli-l-koltuk',
+    title: {
+      tr: 'LUX Sandıklı L Koltuk',
+      en: 'LUX Storage L Sofa',
+      'ar-sy': 'كنبة L فاخرة مع صندوق تخزين',
+      ru: 'Угловой диван LUX с ящиком для хранения',
+      de: 'LUX Ecksofa mit Stauraum',
+    },
+    description: {
+      tr: 'LUX Sandıklı L Koltuk, 210x170 cm ölçülerinde, alt kısmında geniş depolama alanına sahip, açıldığında yatak haline gelebilen modern bir modeldir. Sıfır ve özel üretimdir. Yumuşak dokulu kaliteli kumaşı ve renk seçenekleriyle hem konfor hem şıklık sunar.',
+      en: 'The LUX Storage L Sofa measures 210x170 cm, featuring a spacious storage compartment underneath and a fold-out bed function. Brand new and custom-made, it offers both comfort and style with its soft fabric and multiple color options.',
+      'ar-sy': 'كنبة LUX بشكل حرف L بمقاس 210×170 سم، تحتوي على مساحة تخزين واسعة ويمكن فتحها لتصبح سريرًا. جديدة ومصنوعة حسب الطلب، توفر الراحة والأناقة مع قماش ناعم وخيارات ألوان متعددة.',
+      ru: 'Диван LUX L-образной формы размером 210×170 см с большим ящиком для хранения и функцией раскладывания в кровать. Новый, индивидуального производства. Мягкая обивка и выбор цветов обеспечивают комфорт и стиль.',
+      de: 'Das LUX Ecksofa mit Stauraum misst 210x170 cm, verfügt über ein großes Fach unter der Sitzfläche und lässt sich zu einem Bett ausklappen. Neu und maßgefertigt, bietet es Komfort und Stil mit weichem Stoff und verschiedenen Farboptionen.'
+    },
+    price: '₺15.500',
+    category: 'Mobilya',
+    brand: 'Özel Üretim',
+    condition: 'Yeni',
+    images: [
+      '/assets/products/lux-sandikli-l-koltuk/lux-sandikli-l-koltuk-1.png',
+      '/assets/products/lux-sandikli-l-koltuk/lux-sandikli-l-koltuk-2.png'
+    ],
+    keywords: [
+      'sandıklı l koltuk',
+      'yataklı koltuk takımı',
+      'özel üretim koltuk',
+      'modern l koltuk',
+      'konforlu köşe koltuk'
+    ],
+    metaDescription: '210x170 cm ölçülerinde, sandıklı ve yatak olabilen LUX L Koltuk. Sıfır, özel üretim, renk seçenekli modern ve konforlu bir model.'
+  }, {
+    id: 16,
+    slug: 'lavinia-kose-koltuk-takimi',
+    title: {
+      tr: 'Lavinia Köşe Koltuk Takımı',
+      en: 'Lavinia Corner Sofa Set',
+      'ar-sy': 'طقم كنبة زاوية لافينيا',
+      ru: 'Угловой диван Lavinia',
+      de: 'Lavinia Ecksofa-Set',
+    },
+    description: {
+      tr: 'Lavinia Köşe Koltuk Takımı, 220x220 cm ölçülerinde geniş oturma alanına sahip, kapitone detaylı sırt yapısı ve kadife dokulu kumaşıyla yaşam alanınıza zarafet katar. Pufu dahil olan bu model, hem estetik hem konfor arayanlar için mükemmel bir tercihtir. Modern tasarımı, altın renkli zarif ayakları ve geniş renk seçenekleriyle öne çıkar.',
+      en: 'The Lavinia Corner Sofa Set measures 220x220 cm, offering a spacious seating area with a tufted backrest and velvet-textured fabric. Including a matching ottoman, it’s the perfect choice for those seeking both comfort and aesthetics. The modern design stands out with refined golden legs and multiple color options.',
+      'ar-sy': 'طقم كنبة الزاوية لافينيا بمقاس 220×220 سم، يتميز بمساحة جلوس واسعة وتفاصيل كابتوني أنيقة وقماش مخملي فاخر. يأتي مع بوف متناسق، ويجمع بين الراحة والأناقة مع أرجل ذهبية اللون وخيارات ألوان متعددة.',
+      ru: 'Угловой диван Lavinia размером 220×220 см с элегантной стёжкой и бархатной обивкой. В комплект входит пуф. Просторная и стильная модель с золотистыми ножками и выбором цветов.',
+      de: 'Das Lavinia Ecksofa-Set misst 220x220 cm und bietet eine großzügige Sitzfläche mit gestepptem Rücken und samtigem Stoff. Inklusive passendem Hocker. Das moderne Design mit goldfarbenen Füßen und vielen Farboptionen sorgt für Eleganz und Komfort.'
+    },
+    price: '₺15.000',
+    category: 'Mobilya',
+    brand: 'Özel Üretim',
+    condition: 'Yeni',
+    images: [
+      '/assets/products/lavinia-kose-koltuk-takimi/lavinia-kose-koltuk-takimi-1.png',
+      '/assets/products/lavinia-kose-koltuk-takimi/lavinia-kose-koltuk-takimi-2.png'
+    ],
+    keywords: [
+      'lavinia köşe koltuk',
+      'kapitone koltuk takımı',
+      'kadife köşe koltuk',
+      'modern köşe koltuk',
+      'lüks salon takımı',
+      '220x220 köşe koltuk'
+    ],
+    metaDescription: '220x220 cm ölçülerinde Lavinia Köşe Koltuk Takımı, kapitone detayları ve kadife dokusu ile şıklığı ve konforu bir araya getirir. Pufu dahil, altın ayaklı modern bir modeldir.'
+  }, {
+    id: 17,
+    slug: 'lumina-baza-yatak-seti',
+    title: {
+      tr: 'Lumina Baza & Yatak Seti',
+      en: 'Lumina Bed Base & Mattress Set',
+      'ar-sy': 'طقم سرير وقاعدة لومينا',
+      ru: 'Кровать и матрас Lumina',
+      de: 'Lumina Bettkasten- & Matratzen-Set',
+    },
+    description: {
+      tr: 'Lumina Baza & Yatak Seti, modern ve zarif tasarımıyla yatak odalarına ferah bir görünüm kazandırır. Yüksek konforlu yatağı, dayanıklı baza yapısı ve dikey dikiş detaylı başlığıyla hem estetik hem uzun ömürlü bir kullanım sunar. Sıfır üründür ve farklı kumaş ile renk seçenekleriyle üretilebilir.',
+      en: 'The Lumina Bed Base & Mattress Set brings a fresh, elegant look to your bedroom with its modern design. Featuring a comfortable mattress, durable base, and vertically stitched headboard, it combines style and longevity. Brand new, available in different fabrics and color options.',
+      'ar-sy': 'طقم لومينا للسرير والقاعدة يضيف لمسة عصرية وأنيقة لغرفة النوم. يتميز بمرتبة مريحة، وقاعدة متينة، ولوح رأسي بتفاصيل خياطة عمودية. منتج جديد متوفر بخيارات متعددة من الأقمشة والألوان.',
+      ru: 'Комплект Lumina с основанием и матрасом придаёт спальне современный и элегантный вид. Удобный матрас, прочное основание и изголовье с вертикальной прострочкой обеспечивают стиль и долговечность. Новый продукт, доступен в разных цветах и тканях.',
+      de: 'Das Lumina Bettkasten- & Matratzen-Set verleiht dem Schlafzimmer mit seinem modernen Design einen eleganten Look. Mit einer bequemen Matratze, stabilem Bettkasten und vertikal gestepptem Kopfteil bietet es Stil und Langlebigkeit. Neu, mit verschiedenen Stoff- und Farboptionen erhältlich.'
+    },
+    price: '₺10.000',
+    category: 'Mobilya',
+    brand: 'Özel Üretim',
+    condition: 'Yeni',
+    images: [
+      '/assets/products/lumina-baza-yatak-seti/lumina-baza-yatak-seti-1.png',
+      '/assets/products/lumina-baza-yatak-seti/lumina-baza-yatak-seti-2.png'
+    ],
+    keywords: [
+      'lumina baza',
+      'yatak seti',
+      'baza yatak takımı',
+      'modern baza',
+      'tek kişilik baza'
+    ],
+    metaDescription: 'Lumina Baza & Yatak Seti, modern tasarımı ve yüksek konforuyla yatak odanıza zarafet katar. Dayanıklı baza, kaliteli yatak ve dikey dikişli başlık ile uzun ömürlü bir kullanım sunar.'
   }
+
+
+
+
+
 
 
 

@@ -18,6 +18,9 @@ export interface Item {
   brand?: string;
   condition: string;
   images: string[];
+  keywords?: string[];
+  metaDescription?: string;
+
 }
 
 export interface Translation {
