@@ -129,7 +129,7 @@ export const items: Item[] = [
       '/assets/products/beige-modern-sofa-set/beige-modern-sofa-set-1.png',
       '/assets/products/beige-modern-sofa-set/beige-modern-sofa-set-2.png',
       '/assets/products/beige-modern-sofa-set/beige-modern-sofa-set-3.png',
-      '/assets/products/beige-modern-sofa-set/beige-modern-sofa-set-4.png'
+      '/assets/products/beige-modern-sofa-set/beige-modern-sofa-set-4.png', '/assets/products/beige-modern-sofa-set/beige-modern-sofa-set-5.png'
     ],
   }, {
     id: 6,
@@ -501,7 +501,108 @@ export const items: Item[] = [
       'tek kişilik baza'
     ],
     metaDescription: 'Lumina Baza & Yatak Seti, modern tasarımı ve yüksek konforuyla yatak odanıza zarafet katar. Dayanıklı baza, kaliteli yatak ve dikey dikişli başlık ile uzun ömürlü bir kullanım sunar.'
+  }, {
+    id: 18,
+    slug: 'cream-beige-dual-sofa-set',
+    title: {
+      tr: 'Krem Bej İkili Koltuk Takımı',
+      en: 'Cream Beige Dual Sofa Set',
+      'ar-sy': 'طقم أريكة مزدوجة بيج وكريمي',
+      ru: 'Кремово-бежевый комплект диванов',
+      de: 'Creme-Beige Doppelt-Sofaset'
+    },
+    description: {
+      tr: 'Doğal tonların sıcaklığını modern tasarımla buluşturan krem-bej koltuk takımı. Yumuşak dokusu ve zarif formuyla her ortama şıklık katar.',
+      en: 'A cream and beige sofa set that blends natural warmth with modern design. Soft texture and elegant form for any space.',
+      'ar-sy': 'طقم أريكة باللون البيج والكريمي يجمع بين الدفء الطبيعي والتصميم العصري.',
+      ru: 'Кремово-бежевый диван сочетает уют и современный стиль.',
+      de: 'Creme-beiges Sofaset vereint natürliche Wärme mit modernem Design.'
+    },
+    price: '₺37.500',
+    category: 'Mobilya',
+    brand: '',
+    condition: 'Yeni',
+    images: [
+      '/assets/products/cream-beige-dual-sofa-set/cream-beige-dual-sofa-set-1.png',
+      '/assets/products/cream-beige-dual-sofa-set/cream-beige-dual-sofa-set-2.png'
+    ]
+  }, {
+    id: 19,
+    slug: 'white-soft-bed',
+    title: {
+      tr: 'Beyaz Yumuşak Yatak',
+      en: 'White Soft Bed',
+      'ar-sy': 'سرير أبيض ناعم',
+      ru: 'Белая мягкая кровать',
+      de: 'Weiches weißes Bett'
+    },
+    description: {
+      tr: 'Zarif ve sade tasarımıyla yatak odanıza ferahlık katan beyaz yumuşak yatak modeli. Dolgun hatları ve konforlu yapısıyla modern bir görünüm sunar.',
+      en: 'Elegant and simple design that adds freshness to your bedroom. The white soft bed offers a modern look with its plush form and comfortable structure.',
+      'ar-sy': 'تصميم أنيق وبسيط يضفي لمسة من الانتعاش على غرفة نومك. يتميز السرير الأبيض الناعم بمظهر عصري وهيكل مريح.',
+      ru: 'Элегантная и простая кровать белого цвета придаёт спальне свежесть. Мягкая форма и современный дизайн обеспечивают комфорт и стиль.',
+      de: 'Elegantes, schlichtes Design für ein frisches Schlafzimmergefühl. Das weiche weiße Bett bietet modernen Komfort und Stil.'
+    },
+    price: '₺28.000',
+    category: 'Mobilya',
+    brand: '',
+    condition: 'Yeni',
+    images: [
+      '/assets/products/white-soft-bed/white-soft-bed-1.png',
+      '/assets/products/white-soft-bed/white-soft-bed-2.png',
+      '/assets/products/white-soft-bed/white-soft-bed-3.png'
+    ]
+  }, {
+    id: 20,
+    slug: 'black-ergonomic-office-chair',
+    title: {
+      tr: 'Siyah Ergonomik Ofis Koltuğu',
+      en: 'Black Ergonomic Office Chair',
+      'ar-sy': 'كرسي مكتب أسود مريح',
+      ru: 'Чёрное эргономичное офисное кресло',
+      de: 'Schwarzer ergonomischer Bürostuhl'
+    },
+    description: {
+      tr: 'Uzun çalışma saatlerinde maksimum konfor sunan siyah ergonomik ofis koltuğu. File sırt yapısı ve ayarlanabilir mekanizması ile modern ofisler için ideal bir seçenektir.',
+      en: 'Black ergonomic office chair designed for maximum comfort during long working hours. Features a mesh back and adjustable mechanism, ideal for modern offices.',
+      'ar-sy': 'كرسي مكتب أسود مريح بتصميم شبكي و آلية قابلة للتعديل، مثالي لساعات العمل الطويلة.',
+      ru: 'Чёрное эргономичное кресло с сетчатой спинкой и регулируемым механизмом. Идеально для современных офисов.',
+      de: 'Schwarzer ergonomischer Bürostuhl mit Netzrücken und verstellbarem Mechanismus. Ideal für moderne Büros.'
+    },
+    price: '₺9.500',
+    category: 'Ofis Mobilyası',
+    brand: '',
+    condition: 'Yeni',
+    images: [
+      '/assets/products/black-ergonomic-office-chair/black-ergonomic-office-chair-1.png'
+    ]
+  }, {
+    id: 21,
+    slug: 'colorful-office-chair-set',
+    title: {
+      tr: 'Renkli Fileli Ofis Sandalyesi',
+      en: 'Colorful Mesh Office Chair',
+      'ar-sy': 'كرسي مكتب شبكي ملون',
+      ru: 'Цветное офисное кресло с сеткой',
+      de: 'Bunter Netz-Bürostuhl'
+    },
+    description: {
+      tr: 'Canlı renk seçenekleriyle ofisinize enerji katan renkli fileli ofis sandalyesi. Ergonomik oturum yapısı, döner tekerlekleri ve file sırt desteğiyle uzun süreli kullanım için idealdir.',
+      en: 'A colorful mesh office chair that adds energy to your workspace. With its ergonomic seat, swivel wheels, and breathable back support, it’s ideal for long hours of use.',
+      'ar-sy': 'كرسي مكتب شبكي ملون يضيف لمسة من الحيوية إلى مكان عملك. مريح، قابل للدوران، وذو دعم ظهر مهوى مثالي للاستخدام الطويل.',
+      ru: 'Яркое офисное кресло с сетчатой спинкой. Эргономичное сиденье, вращающиеся колёса и поддержка спины обеспечивают комфорт при длительной работе.',
+      de: 'Farbenfroher Netz-Bürostuhl, der Energie in Ihr Büro bringt. Ergonomisch geformt mit drehbaren Rollen und atmungsaktiver Rückenlehne.'
+    },
+    price: '₺3.200',
+    category: 'Ofis Mobilyası',
+    brand: '',
+    condition: 'Yeni',
+    images: [
+      '/assets/products/colorful-office-chair-set/colorful-office-chair-set-1.png',
+      '/assets/products/colorful-office-chair-set/colorful-office-chair-set-2.png'
+    ]
   }
+
 
 
 
