@@ -593,7 +593,7 @@ export const items: Item[] = [
       ru: 'Яркое офисное кресло с сетчатой спинкой. Эргономичное сиденье, вращающиеся колёса и поддержка спины обеспечивают комфорт при длительной работе.',
       de: 'Farbenfroher Netz-Bürostuhl, der Energie in Ihr Büro bringt. Ergonomisch geformt mit drehbaren Rollen und atmungsaktiver Rückenlehne.'
     },
-    price: '₺3.200',
+    price: '₺7.200',
     category: 'Ofis Mobilyası',
     brand: '',
     condition: 'Yeni',
