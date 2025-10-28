@@ -383,7 +383,7 @@ export const items: Item[] = [
       ru: 'Шкаф Lunaria б/у, в хорошем состоянии. Глянцевая белая поверхность и зеркальные декоративные элементы придают современный и светлый вид. С раздвижными дверцами, просторным внутренним пространством и удобными полками – это стильное и функциональное решение для хранения.',
       de: 'Gebrauchter Lunaria Kleiderschrank in gutem Zustand. Mit glänzender weißer Oberfläche und eleganten Spiegelelementen verleiht er dem Raum ein modernes und helles Ambiente. Das Schiebetürsystem und der großzügige Innenraum mit Regalen und Kleiderstangen bieten Funktionalität und Stil zugleich.'
     },
-    price: '₺8.500',
+    price: '₺10.000',
     category: 'Mobilya',
     brand: '',
     condition: '2. El',
@@ -601,7 +601,39 @@ export const items: Item[] = [
       '/assets/products/colorful-office-chair-set/colorful-office-chair-set-1.png',
       '/assets/products/colorful-office-chair-set/colorful-office-chair-set-2.png'
     ]
+  }, {
+    "id": 22,
+    "slug": "bed-storage-set",
+    "title": {
+      "tr": "Tek Kişilik Baza Seti",
+      "en": "Single Bed Base Set",
+      "ar-sy": "طقم قاعدة سرير مفرد",
+      "ru": "Односпальный комплект кровати с основанием",
+      "de": "Einzelbettgestell-Set"
+    },
+    "description": {
+      "tr": "Modern tasarımı ve pratik kullanımıyla öne çıkan tek kişilik baza seti. Dayanıklı mekanizması sayesinde kolayca açılıp kapanan baza, geniş iç hacmiyle eşyalarınızı düzenli şekilde saklamanızı sağlar. Konforlu yatak ve yumuşak başlık ile birlikte şık bir görünüm sunar. Ölçüleri: 100x200 cm.",
+      "en": "A single bed base set featuring a modern design and practical use. Its durable lift-up mechanism allows easy access to the spacious storage compartment. Comes with a comfortable mattress and a soft padded headboard for a stylish look. Dimensions: 100x200 cm.",
+      "ar-sy": "طقم قاعدة سرير مفرد بتصميم عصري واستخدام عملي. آلية رفع متينة تسهل الوصول إلى المساحة الداخلية الواسعة. يأتي مع مرتبة مريحة ولوح رأس مبطن أنيق. الأبعاد: 100x200 سم.",
+      "ru": "Односпальный комплект кровати с современным дизайном и практичным использованием. Прочный подъемный механизм обеспечивает легкий доступ к вместительному ящику. В комплекте удобный матрас и мягкое изголовье. Размеры: 100x200 см.",
+      "de": "Ein Einzelbettgestell-Set mit modernem Design und praktischer Nutzung. Der stabile Klappmechanismus ermöglicht einfachen Zugang zum großzügigen Stauraum. Mit bequemer Matratze und gepolstertem Kopfteil. Maße: 100x200 cm."
+    },
+    "price": "₺15.000",
+    "category": "Yatak Odası Mobilyası",
+    "brand": "",
+    "condition": "Yeni",
+    "images": [
+      "/assets/products/bed-storage-set/bed-storage-set-5.png",
+      "/assets/products/bed-storage-set/bed-storage-set-6.png",
+      "/assets/products/bed-storage-set/bed-storage-set-1.png",
+      "/assets/products/bed-storage-set/bed-storage-set-2.png",
+      "/assets/products/bed-storage-set/bed-storage-set-3.png",
+      "/assets/products/bed-storage-set/bed-storage-set-4.png",
+
+    ]
   }
+
+
 
 
 
