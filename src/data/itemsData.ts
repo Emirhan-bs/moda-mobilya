@@ -457,7 +457,7 @@ export const items: Item[] = [
     condition: 'Yeni',
     images: [
       '/assets/products/lavinia-kose-koltuk-takimi/lavinia-kose-koltuk-takimi-1.png',
-      '/assets/products/lavinia-kose-koltuk-takimi/lavinia-kose-koltuk-takimi-2.png'
+      '/assets/products/lavinia-kose-koltuk-takimi/lavinia-kose-koltuk-takimi-2.png', '/assets/products/lavinia-kose-koltuk-takimi/lavinia-kose-koltuk-takimi-3.png', '/assets/products/lavinia-kose-koltuk-takimi/lavinia-kose-koltuk-takimi-4.png',
     ],
     keywords: [
       'lavinia köşe koltuk',
@@ -631,7 +631,35 @@ export const items: Item[] = [
       "/assets/products/bed-storage-set/bed-storage-set-4.png",
 
     ]
+  }, {
+    "id": 23,
+    "slug": "corner-sofa-set",
+    "title": {
+      "tr": "Köşe Koltuk Takımı",
+      "en": "Corner Sofa Set",
+      "ar-sy": "طقم أريكة زاوية",
+      "ru": "Угловой диван",
+      "de": "Ecksofa-Set"
+    },
+    "description": {
+      "tr": "Modern ve konforlu tasarımıyla yaşam alanlarınıza şıklık katan köşe koltuk takımı. Dayanıklı ahşap ayakları, yumuşak oturma minderleri ve farklı renk seçenekleriyle her ortama uyum sağlar. Küçük ve orta ölçekli salonlar için ideal bir oturma çözümüdür. Ölçüleri: 240x160 cm.",
+      "en": "A modern and comfortable corner sofa set that adds elegance to your living space. With its sturdy wooden legs, soft cushions, and various color options, it fits perfectly into any room. Ideal for small and medium-sized living areas. Dimensions: 240x160 cm.",
+      "ar-sy": "طقم أريكة زاوية بتصميم عصري ومريح يضيف لمسة من الأناقة إلى غرفة المعيشة الخاصة بك. يتميز بأرجل خشبية متينة ووسائد ناعمة وخيارات ألوان متعددة. مثالي للمساحات الصغيرة والمتوسطة. الأبعاد: 240x160 سم.",
+      "ru": "Современный и удобный угловой диван, придающий изысканность вашему интерьеру. Прочные деревянные ножки, мягкие подушки и различные варианты цветов делают его идеальным для небольших и средних помещений. Размеры: 240x160 см.",
+      "de": "Ein modernes und bequemes Ecksofa-Set, das Ihrem Wohnraum Eleganz verleiht. Mit stabilen Holzbeinen, weichen Kissen und verschiedenen Farboptionen ist es ideal für kleine bis mittelgroße Wohnzimmer. Maße: 240x160 cm."
+    },
+    "price": "₺22.000",
+    "category": "Oturma Grubu",
+    "brand": "",
+    "condition": "Yeni",
+    "images": [
+      "/assets/products/corner-sofa-set/corner-sofa-set-1.png",
+      "/assets/products/corner-sofa-set/corner-sofa-set-2.png",
+      "/assets/products/corner-sofa-set/corner-sofa-set-3.png",
+
+    ]
   }
+
 
 
 
