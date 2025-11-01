@@ -76,7 +76,7 @@ export const items: Item[] = [
     brand: 'Özel Üretim',
     condition: 'Çok İyi',
     images: [
-      '/assets/products/mavi-l-koltuk/blue.jpeg',
+      '/assets/products/mavi-l-koltuk/blue-sell.png', '/assets/products/mavi-l-koltuk/blue.jpeg',
     ],
   }, {
     "id": 4,
