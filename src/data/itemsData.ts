@@ -355,7 +355,7 @@ export const items: Item[] = [
     brand: '',
     condition: '2. El',
     images: [
-      '/assets/products/luna-gardirop/luna-gardirop-one.png',
+      '/assets/products/luna-gardirop/luna-gardirop-sold.png', '/assets/products/luna-gardirop/luna-gardirop-one.png',
       '/assets/products/luna-gardirop/luna-gardirop-two.png'
     ],
     keywords: [
@@ -658,7 +658,36 @@ export const items: Item[] = [
       "/assets/products/corner-sofa-set/corner-sofa-set-3.png",
 
     ]
+  }, {
+    id: 12,
+    slug: 'smart-table',
+    title: {
+      tr: 'Akıllı Sehpa',
+      en: 'Smart Coffee Table',
+      'ar-sy': 'طاولة ذكية',
+      ru: 'Умный стол',
+      de: 'Intelligenter Tisch',
+    },
+    description: {
+      tr: 'Bu akıllı sehpa fonksiyonel yapısı ve modern tasarımıyla yaşam alanınıza şıklık katar.',
+      en: 'This smart coffee table adds elegance to living spaces with its functional and modern design.',
+      'ar-sy': 'تضيف هذه الطاولة الذكية لمسة من الأناقة بفضل تصميمها العصري والعملي.',
+      ru: 'Этот умный стол добавляет элегантности благодаря современному и функциональному дизайну.',
+      de: 'Dieser intelligente Tisch verleiht Ihrem Wohnraum Eleganz mit seinem modernen und funktionalen Design.'
+    },
+    price: '₺2.500',
+    category: 'Mobilya',
+    condition: 'Yeni',
+    images: [
+      '/assets/products/smart-table/smart-table-all.jpg',
+      '/assets/products/smart-table/smart-table-one.png',
+      '/assets/products/smart-table/smart-table-two.png',
+      '/assets/products/smart-table/smart-table-three.png',
+      '/assets/products/smart-table/smart-table-four.png',
+      '/assets/products/smart-table/smart-table-five.png',
+    ]
   }
+
 
 
 
