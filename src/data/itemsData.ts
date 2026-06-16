@@ -95,7 +95,7 @@ export const items: Item[] = [
       "ru": "Современный дизайн, подходит как для кухни, так и для гостиной. Доступен в разных цветах, сочетает порядок и стиль. Новый и готов к использованию.",
       "de": "Mit modernem Design passt er sowohl in die Küche als auch ins Wohnzimmer. In verschiedenen Farben erhältlich – kombiniert Ordnung und Eleganz. Neu und einsatzbereit."
     },
-    "price": "₺2.500",
+    "price": "₺4.500",
     "category": "Mobilya",
     "brand": "Moda Mobilya",
     "condition": "Yeni",
@@ -648,7 +648,7 @@ export const items: Item[] = [
       "ru": "Современный и удобный угловой диван, придающий изысканность вашему интерьеру. Прочные деревянные ножки, мягкие подушки и различные варианты цветов делают его идеальным для небольших и средних помещений. Размеры: 240x160 см.",
       "de": "Ein modernes und bequemes Ecksofa-Set, das Ihrem Wohnraum Eleganz verleiht. Mit stabilen Holzbeinen, weichen Kissen und verschiedenen Farboptionen ist es ideal für kleine bis mittelgroße Wohnzimmer. Maße: 240x160 cm."
     },
-    "price": "₺22.000",
+    "price": "₺15.000",
     "category": "Oturma Grubu",
     "brand": "",
     "condition": "Yeni",
@@ -675,7 +675,7 @@ export const items: Item[] = [
       ru: 'Этот умный стол добавляет элегантности благодаря современному и функциональному дизайну.',
       de: 'Dieser intelligente Tisch verleiht Ihrem Wohnraum Eleganz mit seinem modernen und funktionalen Design.'
     },
-    price: '₺2.500',
+    price: '₺3.500',
     category: 'Mobilya',
     condition: 'Yeni',
     images: [
