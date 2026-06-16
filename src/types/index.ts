@@ -21,6 +21,11 @@ export interface Item {
   keywords?: string[];
   metaDescription?: string;
 
+  /* Admin */
+  costPrice?:number;
+  salePrice?:number;
+  stock?:number;
+  inStock?:boolean;
 }
 
 export interface Translation {
@@ -69,4 +74,16 @@ export interface Translation {
     phone: string;
     address: string;
   };
+}
+export interface SaleRecord {
+  id: number;
+  productId: number;
+  productTitle: string;
+  quantity: number;
+  salePrice: number;
+  costPrice: number;
+  totalRevenue: number;
+  totalCost: number;
+  totalProfit: number;
+  date: string;
 }

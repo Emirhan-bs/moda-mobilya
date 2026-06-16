@@ -2,22 +2,26 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../i18n/translations';
-import { items, categories } from '../data/itemsData';
+import { useProducts } from '../context/ProductsContext';
+import { categories } from '../data/itemsData';
+import FavoriteButton from '../components/FavoriteButton';
+import LoginModal from '../components/LoginModal';
 import { Search } from 'lucide-react';
 
 export default function Items() {
   const { language } = useLanguage();
   const t = translations[language];
+  const { products } = useProducts();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const shuffledItems = useMemo(() => {
-    return [...items].sort(() => Math.random() - 0.5);
-  }, []);
+    return [...products].sort(() => Math.random() - 0.5);
+  }, [products]);
 
   const filteredItems = useMemo(() => {
     let result = shuffledItems;
-
     if (searchTerm) {
       result = result.filter((item) => {
         const title = item.title[language].toLowerCase();
@@ -26,11 +30,9 @@ export default function Items() {
         return title.includes(search) || description.includes(search) || item.category.toLowerCase().includes(search);
       });
     }
-
     if (selectedCategory) {
       result = result.filter((item) => item.category === selectedCategory);
     }
-
     return result;
   }, [shuffledItems, searchTerm, selectedCategory, language]);
 
@@ -39,7 +41,6 @@ export default function Items() {
       <section className="bg-gradient-to-br from-gray-50 to-gray-100 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-bold text-center mb-8">{t.items.title}</h1>
-
           <div className="max-w-3xl mx-auto">
             <div className="flex flex-col sm:flex-row gap-4">
               <div className="flex-1 relative">
@@ -59,9 +60,7 @@ export default function Items() {
               >
                 <option value="">{t.items.allCategories}</option>
                 {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
+                  <option key={category} value={category}>{category}</option>
                 ))}
               </select>
             </div>
@@ -78,46 +77,56 @@ export default function Items() {
           <>
             <p className="text-gray-600 mb-8">
               {filteredItems.length} {language === 'tr' ? 'ürün bulundu' :
-               language === 'en' ? 'items found' :
-               language === 'ar-sy' ? 'منتج تم العثور عليه' :
-               language === 'ru' ? 'товаров найдено' :
-               'Artikel gefunden'}
+                language === 'en' ? 'items found' :
+                  language === 'ar-sy' ? 'منتج تم العثور عليه' :
+                    language === 'ru' ? 'товаров найдено' :
+                      'Artikel gefunden'}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredItems.map((item) => (
-                <Link
-                  key={item.id}
-                  to={`/items/${item.slug}`}
-                  className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow group"
-                >
-                  <div className="aspect-video overflow-hidden">
-                    <img
-                      src={item.images[0]}
-                      alt={item.title[language]}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="text-sm text-gray-500 mb-2">{item.category}</div>
-                    <h3 className="text-xl font-semibold mb-2 group-hover:text-gray-700 transition-colors">
-                      {item.title[language]}
-                    </h3>
-                    <p className="text-gray-600 mb-4 line-clamp-2">
-                      {item.description[language]}
-                    </p>
-                    <div className="flex justify-between items-center">
-                      <span className="text-2xl font-bold text-gray-900">{item.price}</span>
-                      <span className="text-gray-900 font-medium group-hover:underline">
-                        {t.items.viewDetails} →
-                      </span>
+                <div key={item.id} className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow group relative">
+                  <Link to={`/items/${item.slug}`}>
+                    <div className="aspect-video overflow-hidden">
+                      <img
+                        src={item.images[0]}
+                        alt={item.title[language]}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
+                    <div className="p-6">
+                      <div className="text-sm text-gray-500 mb-2">{item.category}</div>
+                      <h3 className="text-xl font-semibold mb-2 group-hover:text-gray-700 transition-colors">
+                        {item.title[language]}
+                      </h3>
+                      <p className="text-gray-600 mb-4 line-clamp-2">{item.description[language]}</p>
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <span className="text-2xl font-bold text-gray-900">{item.price}</span>
+                          <div className="mt-1">
+                            {item.inStock === false ? (
+                              <span className="text-xs text-red-500 font-medium">🔴 Stokta Yok</span>
+                            ) : (
+                              <span className="text-xs text-green-500 font-medium">🟢 Stokta Var</span>
+                            )}
+                          </div>
+                        </div>
+                        <span className="text-gray-900 font-medium group-hover:underline">
+                          {t.items.viewDetails} →
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                  <div className="absolute top-3 right-3">
+                    <FavoriteButton itemId={item.id} onLoginRequired={() => setShowLoginModal(true)} />
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </>
         )}
       </section>
+
+      {showLoginModal && <LoginModal onClose={() => setShowLoginModal(false)} />}
     </div>
   );
 }

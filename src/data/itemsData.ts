@@ -235,7 +235,7 @@ export const items: Item[] = [
       '/assets/products/soft-corner-l-sofa/soft-corner-l-sofa.png'
     ],
   }, {
-    id: 8,
+    id: 24,
     slug: 'gold-accent-cream-sofa-set',
     title: {
       tr: 'Altın Detaylı Krem Koltuk Takımı',
@@ -284,7 +284,7 @@ export const items: Item[] = [
       '/assets/products/tufted-luxe-fireplace-sofa-set/tufted-luxe-fireplace-sofa-set-1.png'
     ],
   }, {
-    id: 11,
+    id: 25,
     slug: 'nova-elegance-koltuk-takimi',
     title: {
       tr: 'Nova Elegance Koltuk Takımı',
@@ -659,7 +659,7 @@ export const items: Item[] = [
 
     ]
   }, {
-    id: 12,
+    id: 26,
     slug: 'smart-table',
     title: {
       tr: 'Akıllı Sehpa',
