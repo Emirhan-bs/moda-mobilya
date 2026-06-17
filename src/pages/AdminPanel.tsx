@@ -32,31 +32,30 @@ function slugify(text: string) {
 
 const BACKEND_URL = import.meta.env.PROD ? 'https://moda-backend-cgut.onrender.com' : '';
 
-async function autoTranslate(trText: string, field: 'title' | 'description'): Promise<MultiLang> {
-  const prompt = field === 'title'
-    ? `Translate this Turkish furniture/product title into English, Syrian Arabic, Russian, and German. 
-       Return ONLY a JSON object with keys: en, ar-sy, ru, de. No explanation, no markdown.
-       Turkish: "${trText}"`
-    : `Translate this Turkish furniture/product description into English, Syrian Arabic, Russian, and German. 
-       Keep it natural and professional for an e-commerce site.
-       Return ONLY a JSON object with keys: en, ar-sy, ru, de. No explanation, no markdown.
-       Turkish: "${trText}"`;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+async function autoTranslate(trText: string, _field: 'title' | 'description'): Promise<MultiLang> {
+  const langs = [
+    { key: 'en', code: 'en' },
+    { key: 'ar-sy', code: 'ar' },
+    { key: 'ru', code: 'ru' },
+    { key: 'de', code: 'de' },
+  ];
 
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1000,
-      messages: [{ role: 'user', content: prompt }],
-    }),
-  });
+  const results: Partial<MultiLang> = { tr: trText };
 
-  const data = await response.json();
-  const text = data.content?.map((c: { type: string; text?: string }) => c.text || '').join('') || '';
-  const clean = text.replace(/```json|```/g, '').trim();
-  const parsed = JSON.parse(clean);
-  return { tr: trText, ...parsed };
+  await Promise.all(
+    langs.map(async ({ key, code }) => {
+      const res = await fetch('https://moda-backend-cgut.onrender.com/api/translate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: trText, targetLang: code }),
+      });
+      const data = await res.json();
+      results[key as keyof MultiLang] = data.translated;
+    })
+  );
+
+  return results as MultiLang;
 }
 
 interface ProductFormData {
