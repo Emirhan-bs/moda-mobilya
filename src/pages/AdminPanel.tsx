@@ -6,7 +6,7 @@ import { Item, MultiLang } from '../types';
 import { Navigate, Link } from 'react-router-dom';
 import {
   Plus, Edit2, Trash2, X, Check, Sparkles, ImagePlus,
-  ChevronDown, ChevronUp, AlertTriangle, Shield, TrendingUp
+  ChevronDown, ChevronUp, AlertTriangle, Shield, TrendingUp, Package
 } from 'lucide-react';
 
 const LANGUAGES: { code: keyof MultiLang; label: string; flag: string }[] = [
@@ -17,7 +17,7 @@ const LANGUAGES: { code: keyof MultiLang; label: string; flag: string }[] = [
   { code: 'de', label: 'Almanca', flag: '🇩🇪' },
 ];
 
-const CATEGORIES = ['Mobilya', 'Beyaz Eşya', 'Elektronik', 'Diğer'];
+const CATEGORIES = ['Mobilya', 'Beyaz Eşya', 'Elektronik', 'Ofis Mobilyası', 'Yatak Odası Mobilyası', 'Oturma Grubu', 'Diğer'];
 
 const emptyMultiLang = (): MultiLang => ({ tr: '', en: '', 'ar-sy': '', ru: '', de: '' });
 
@@ -96,7 +96,7 @@ const emptyForm = (): ProductFormData => ({
 export default function AdminPanel() {
   const { isAdmin } = useAuth();
   const { products, addProduct, updateProduct, deleteProduct } = useProducts();
-  const { addSale } = useSales();
+  const { addSale, addStockRecord } = useSales();
 
   const [showForm, setShowForm] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -108,9 +108,16 @@ export default function AdminPanel() {
   const [expandedProduct, setExpandedProduct] = useState<number | null>(null);
   const [uploadLoading, setUploadLoading] = useState(false);
   const [uploadError, setUploadError] = useState('');
+
+  // Satış modal
   const [saleModal, setSaleModal] = useState<{ productId: number; title: string; salePrice: number; costPrice: number } | null>(null);
   const [saleQty, setSaleQty] = useState('1');
   const [salePriceOverride, setSalePriceOverride] = useState('');
+
+  // Stok girişi modal
+  const [stockModal, setStockModal] = useState<{ productId: number; title: string; costPrice: number } | null>(null);
+  const [stockQty, setStockQty] = useState('1');
+  const [stockNote, setStockNote] = useState('');
 
   if (!isAdmin) return <Navigate to="/" replace />;
 
@@ -223,6 +230,30 @@ export default function AdminPanel() {
     setSaleModal(null);
     setSaleQty('1');
     setSalePriceOverride('');
+  };
+
+  const handleStockSubmit = () => {
+    if (!stockModal || !stockQty || Number(stockQty) <= 0) return;
+    const qty = Number(stockQty);
+
+    addStockRecord({
+      productId: stockModal.productId,
+      productTitle: stockModal.title,
+      quantity: qty,
+      costPrice: stockModal.costPrice,
+      totalCost: stockModal.costPrice * qty,
+      note: stockNote || undefined,
+    });
+
+    const product = products.find(p => p.id === stockModal.productId);
+    if (product) {
+      const newStock = (product.stock || 0) + qty;
+      updateProduct({ ...product, stock: newStock, inStock: newStock > 0 });
+    }
+
+    setStockModal(null);
+    setStockQty('1');
+    setStockNote('');
   };
 
   const handleSave = async () => {
@@ -338,6 +369,23 @@ export default function AdminPanel() {
                   <button onClick={() => setExpandedProduct(expandedProduct === product.id ? null : product.id)} className="p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-50 rounded-lg transition-colors">
                     {expandedProduct === product.id ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                   </button>
+                  {/* Stok Girişi */}
+                  <button
+                    onClick={() => {
+                      if (product.costPrice) {
+                        setStockModal({ productId: product.id, title: product.title.tr, costPrice: product.costPrice });
+                        setStockQty('1');
+                        setStockNote('');
+                      } else {
+                        alert('Önce maliyet fiyatı girin.');
+                      }
+                    }}
+                    className="p-2 text-blue-400 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
+                    title="Stok Girişi"
+                  >
+                    <Package className="w-4 h-4" />
+                  </button>
+                  {/* Satış Ekle */}
                   <button
                     onClick={() => {
                       if (product.salePrice && product.costPrice) {
@@ -379,22 +427,63 @@ export default function AdminPanel() {
         </div>
       </div>
 
+      {/* Stok Girişi Modal */}
+      {stockModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
+            <h3 className="font-bold text-gray-900 mb-1">Stok Girişi</h3>
+            <p className="text-sm text-gray-500 mb-4">{stockModal.title}</p>
+            <div className="bg-blue-50 rounded-xl p-3 mb-4 text-sm">
+              <div className="flex justify-between">
+                <span className="text-gray-500">Birim Maliyet:</span>
+                <span className="font-semibold">₺{stockModal.costPrice.toLocaleString('tr-TR')}</span>
+              </div>
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Gelen Adet</label>
+              <input type="number" min="1" value={stockQty} onChange={e => setStockQty(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-400 outline-none text-lg font-bold text-center" />
+            </div>
+            <div className="mb-4">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">Not (isteğe bağlı)</label>
+              <input type="text" value={stockNote} onChange={e => setStockNote(e.target.value)}
+                placeholder="örn. Tedarikçiden geldi"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-400 outline-none" />
+            </div>
+            {Number(stockQty) > 0 && (
+              <div className="bg-blue-50 rounded-xl p-3 mb-4 text-center">
+                <p className="text-xs text-gray-500 mb-1">Toplam Maliyet</p>
+                <p className="text-2xl font-bold text-blue-600">
+                  ₺{(stockModal.costPrice * Number(stockQty)).toLocaleString('tr-TR')}
+                </p>
+                <p className="text-xs text-gray-400 mt-1">{Number(stockQty)} adet × ₺{stockModal.costPrice.toLocaleString('tr-TR')}</p>
+              </div>
+            )}
+            <div className="flex gap-3">
+              <button onClick={() => { setStockModal(null); setStockQty('1'); setStockNote(''); }}
+                className="flex-1 py-2.5 border border-gray-200 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors">
+                İptal
+              </button>
+              <button onClick={handleStockSubmit} disabled={!stockQty || Number(stockQty) <= 0}
+                className="flex-1 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-400 text-white rounded-xl font-medium transition-colors">
+                Kaydet
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Satış Modal */}
       {saleModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
             <h3 className="font-bold text-gray-900 mb-1">Satış Ekle</h3>
             <p className="text-sm text-gray-500 mb-4">{saleModal.title}</p>
-
             <div className="bg-amber-50 rounded-xl p-3 mb-4 text-sm space-y-2">
               <div className="flex justify-between items-center">
                 <span className="text-gray-500">Satış Fiyatı (₺):</span>
-                <input
-                  type="number"
-                  value={salePriceOverride}
-                  onChange={e => setSalePriceOverride(e.target.value)}
-                  className="w-32 px-3 py-1.5 rounded-lg border border-amber-200 focus:ring-2 focus:ring-amber-400 outline-none text-right font-semibold text-sm"
-                />
+                <input type="number" value={salePriceOverride} onChange={e => setSalePriceOverride(e.target.value)}
+                  className="w-32 px-3 py-1.5 rounded-lg border border-amber-200 focus:ring-2 focus:ring-amber-400 outline-none text-right font-semibold text-sm" />
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-500">Maliyet:</span>
@@ -407,42 +496,27 @@ export default function AdminPanel() {
                 </span>
               </div>
             </div>
-
             <div className="mb-4">
               <label className="block text-sm font-semibold text-gray-700 mb-2">Satılan Adet</label>
-              <input
-                type="number"
-                min="1"
-                value={saleQty}
-                onChange={e => setSaleQty(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-400 outline-none text-lg font-bold text-center"
-              />
+              <input type="number" min="1" value={saleQty} onChange={e => setSaleQty(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-green-400 outline-none text-lg font-bold text-center" />
             </div>
-
             {Number(saleQty) > 0 && (
               <div className="bg-green-50 rounded-xl p-3 mb-4 text-center">
                 <p className="text-xs text-gray-500 mb-1">Toplam Kâr</p>
                 <p className={`text-2xl font-bold ${totalProfit >= 0 ? 'text-green-600' : 'text-red-600'}`}>
                   ₺{totalProfit.toLocaleString('tr-TR')}
                 </p>
-                <p className="text-xs text-gray-400 mt-1">
-                  {Number(saleQty)} adet × ₺{unitProfit.toLocaleString('tr-TR')}
-                </p>
+                <p className="text-xs text-gray-400 mt-1">{Number(saleQty)} adet × ₺{unitProfit.toLocaleString('tr-TR')}</p>
               </div>
             )}
-
             <div className="flex gap-3">
-              <button
-                onClick={() => { setSaleModal(null); setSaleQty('1'); setSalePriceOverride(''); }}
-                className="flex-1 py-2.5 border border-gray-200 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors"
-              >
+              <button onClick={() => { setSaleModal(null); setSaleQty('1'); setSalePriceOverride(''); }}
+                className="flex-1 py-2.5 border border-gray-200 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition-colors">
                 İptal
               </button>
-              <button
-                onClick={handleSaleSubmit}
-                disabled={!saleQty || Number(saleQty) <= 0}
-                className="flex-1 py-2.5 bg-green-600 hover:bg-green-700 disabled:bg-gray-200 disabled:text-gray-400 text-white rounded-xl font-medium transition-colors"
-              >
+              <button onClick={handleSaleSubmit} disabled={!saleQty || Number(saleQty) <= 0}
+                className="flex-1 py-2.5 bg-green-600 hover:bg-green-700 disabled:bg-gray-200 disabled:text-gray-400 text-white rounded-xl font-medium transition-colors">
                 Satışı Kaydet
               </button>
             </div>
@@ -475,31 +549,22 @@ export default function AdminPanel() {
       {showForm && (
         <div className="fixed inset-0 bg-black/60 z-[200] flex items-start justify-center p-4 overflow-y-auto">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl my-8 mx-auto">
-
             <div className="bg-gray-900 text-white px-6 py-4 rounded-t-2xl flex justify-between items-center">
               <h2 className="font-bold text-lg">{editingId ? 'Ürünü Düzenle' : 'Yeni Ürün Ekle'}</h2>
               <button onClick={closeForm} className="text-gray-400 hover:text-white transition-colors">
                 <X className="w-5 h-5" />
               </button>
             </div>
-
             <div className="p-6 space-y-6">
-
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Ürün Başlığı (Türkçe) *</label>
                 <div className="flex gap-2">
-                  <input
-                    type="text"
-                    value={form.titleTr}
+                  <input type="text" value={form.titleTr}
                     onChange={e => setForm(f => ({ ...f, titleTr: e.target.value, title: { ...f.title, tr: e.target.value } }))}
                     placeholder="örn. Çek Yat Koltuk"
-                    className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-gray-900 outline-none"
-                  />
-                  <button
-                    onClick={() => handleTranslate('title')}
-                    disabled={!form.titleTr.trim() || translating === 'title'}
-                    className="flex items-center gap-2 px-4 py-3 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-200 disabled:text-gray-400 text-white rounded-xl font-medium transition-colors whitespace-nowrap"
-                  >
+                    className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-gray-900 outline-none" />
+                  <button onClick={() => handleTranslate('title')} disabled={!form.titleTr.trim() || translating === 'title'}
+                    className="flex items-center gap-2 px-4 py-3 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-200 disabled:text-gray-400 text-white rounded-xl font-medium transition-colors whitespace-nowrap">
                     {translating === 'title' ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Sparkles className="w-4 h-4" />}
                     Çevir
                   </button>
@@ -509,7 +574,9 @@ export default function AdminPanel() {
                     {LANGUAGES.filter(l => l.code !== 'tr').map(lang => (
                       <div key={lang.code} className="bg-purple-50 rounded-lg p-2">
                         <div className="text-xs text-purple-500 font-medium mb-1">{lang.flag} {lang.label}</div>
-                        <input type="text" value={form.title[lang.code]} onChange={e => setForm(f => ({ ...f, title: { ...f.title, [lang.code]: e.target.value } }))} className="w-full text-sm bg-transparent outline-none text-gray-700" />
+                        <input type="text" value={form.title[lang.code]}
+                          onChange={e => setForm(f => ({ ...f, title: { ...f.title, [lang.code]: e.target.value } }))}
+                          className="w-full text-sm bg-transparent outline-none text-gray-700" />
                       </div>
                     ))}
                   </div>
@@ -519,18 +586,12 @@ export default function AdminPanel() {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Ürün Açıklaması (Türkçe) *</label>
                 <div className="flex gap-2 items-start">
-                  <textarea
-                    value={form.descTr}
+                  <textarea value={form.descTr}
                     onChange={e => setForm(f => ({ ...f, descTr: e.target.value, description: { ...f.description, tr: e.target.value } }))}
-                    rows={3}
-                    placeholder="Ürün hakkında detaylı açıklama yazın..."
-                    className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-gray-900 outline-none resize-none"
-                  />
-                  <button
-                    onClick={() => handleTranslate('description')}
-                    disabled={!form.descTr.trim() || translating === 'description'}
-                    className="flex items-center gap-2 px-4 py-3 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-200 disabled:text-gray-400 text-white rounded-xl font-medium transition-colors whitespace-nowrap"
-                  >
+                    rows={3} placeholder="Ürün hakkında detaylı açıklama yazın..."
+                    className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-gray-900 outline-none resize-none" />
+                  <button onClick={() => handleTranslate('description')} disabled={!form.descTr.trim() || translating === 'description'}
+                    className="flex items-center gap-2 px-4 py-3 bg-purple-600 hover:bg-purple-700 disabled:bg-gray-200 disabled:text-gray-400 text-white rounded-xl font-medium transition-colors whitespace-nowrap">
                     {translating === 'description' ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <Sparkles className="w-4 h-4" />}
                     Çevir
                   </button>
@@ -540,7 +601,9 @@ export default function AdminPanel() {
                     {LANGUAGES.filter(l => l.code !== 'tr').map(lang => (
                       <div key={lang.code} className="bg-purple-50 rounded-lg p-2">
                         <div className="text-xs text-purple-500 font-medium mb-1">{lang.flag} {lang.label}</div>
-                        <textarea value={form.description[lang.code]} onChange={e => setForm(f => ({ ...f, description: { ...f.description, [lang.code]: e.target.value } }))} rows={2} className="w-full text-sm bg-transparent outline-none text-gray-700 resize-none" />
+                        <textarea value={form.description[lang.code]}
+                          onChange={e => setForm(f => ({ ...f, description: { ...f.description, [lang.code]: e.target.value } }))}
+                          rows={2} className="w-full text-sm bg-transparent outline-none text-gray-700 resize-none" />
                       </div>
                     ))}
                   </div>
@@ -557,13 +620,15 @@ export default function AdminPanel() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Kategori</label>
-                  <select value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-gray-900 outline-none bg-white">
+                  <select value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))}
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-gray-900 outline-none bg-white">
                     {CATEGORIES.map(c => <option key={c}>{c}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Durum</label>
-                  <select value={form.condition} onChange={e => setForm(f => ({ ...f, condition: e.target.value }))} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-gray-900 outline-none bg-white">
+                  <select value={form.condition} onChange={e => setForm(f => ({ ...f, condition: e.target.value }))}
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-gray-900 outline-none bg-white">
                     {['Yeni', 'Sıfır', 'Çok İyi', 'İyi', '2. El'].map(c => <option key={c}>{c}</option>)}
                   </select>
                 </div>
@@ -571,7 +636,9 @@ export default function AdminPanel() {
 
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Marka (isteğe bağlı)</label>
-                <input type="text" value={form.brand} onChange={e => setForm(f => ({ ...f, brand: e.target.value }))} placeholder="örn. Özel Üretim" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-gray-900 outline-none" />
+                <input type="text" value={form.brand} onChange={e => setForm(f => ({ ...f, brand: e.target.value }))}
+                  placeholder="örn. Özel Üretim"
+                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-gray-900 outline-none" />
               </div>
 
               <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 space-y-4">
@@ -579,15 +646,18 @@ export default function AdminPanel() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Maliyet Fiyatı (₺)</label>
-                    <input type="number" value={form.costPrice} onChange={e => setForm(f => ({ ...f, costPrice: e.target.value }))} placeholder="0" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-amber-400 outline-none" />
+                    <input type="number" value={form.costPrice} onChange={e => setForm(f => ({ ...f, costPrice: e.target.value }))}
+                      placeholder="0" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-amber-400 outline-none" />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Satış Fiyatı (₺)</label>
-                    <input type="number" value={form.salePrice} onChange={e => setForm(f => ({ ...f, salePrice: e.target.value }))} placeholder="0" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-amber-400 outline-none" />
+                    <input type="number" value={form.salePrice} onChange={e => setForm(f => ({ ...f, salePrice: e.target.value }))}
+                      placeholder="0" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-amber-400 outline-none" />
                   </div>
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Stok Adedi</label>
-                    <input type="number" value={form.stock} onChange={e => setForm(f => ({ ...f, stock: e.target.value }))} placeholder="0" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-amber-400 outline-none" />
+                    <input type="number" value={form.stock} onChange={e => setForm(f => ({ ...f, stock: e.target.value }))}
+                      placeholder="0" className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-amber-400 outline-none" />
                   </div>
                 </div>
 
@@ -620,10 +690,8 @@ export default function AdminPanel() {
 
                 <div className="flex items-center gap-3">
                   <span className="text-sm font-semibold text-gray-700">Stok Durumu:</span>
-                  <button
-                    onClick={() => setForm(f => ({ ...f, inStock: !f.inStock }))}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm transition-colors ${form.inStock ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-red-100 text-red-700 hover:bg-red-200'}`}
-                  >
+                  <button onClick={() => setForm(f => ({ ...f, inStock: !f.inStock }))}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium text-sm transition-colors ${form.inStock ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-red-100 text-red-700 hover:bg-red-200'}`}>
                     {form.inStock ? '🟢 Stokta Var' : '🔴 Stokta Yok'}
                   </button>
                 </div>
@@ -632,8 +700,11 @@ export default function AdminPanel() {
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">Ürün Görselleri</label>
                 <div className="flex gap-2">
-                  <input type="text" value={form.imageUrl} onChange={e => setForm(f => ({ ...f, imageUrl: e.target.value }))} placeholder="Link üzerinde yükleme" className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-gray-900 outline-none text-sm" />
-                  <button onClick={addImageUrl} disabled={!form.imageUrl.trim()} className="flex items-center gap-2 px-4 py-3 bg-gray-900 hover:bg-gray-700 disabled:bg-gray-200 disabled:text-gray-400 text-white rounded-xl transition-colors">
+                  <input type="text" value={form.imageUrl} onChange={e => setForm(f => ({ ...f, imageUrl: e.target.value }))}
+                    placeholder="Link üzerinde yükleme"
+                    className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-gray-900 outline-none text-sm" />
+                  <button onClick={addImageUrl} disabled={!form.imageUrl.trim()}
+                    className="flex items-center gap-2 px-4 py-3 bg-gray-900 hover:bg-gray-700 disabled:bg-gray-200 disabled:text-gray-400 text-white rounded-xl transition-colors">
                     <ImagePlus className="w-4 h-4" />
                   </button>
                 </div>
@@ -644,7 +715,8 @@ export default function AdminPanel() {
                     ) : (
                       <><ImagePlus className="w-4 h-4" /><span className="text-sm font-medium">Bilgisayardan Yükle</span></>
                     )}
-                    <input type="file" accept="image/*" className="hidden" disabled={uploadLoading} onChange={e => { const file = e.target.files?.[0]; if (file) uploadImage(file); }} />
+                    <input type="file" accept="image/*" className="hidden" disabled={uploadLoading}
+                      onChange={e => { const file = e.target.files?.[0]; if (file) uploadImage(file); }} />
                   </label>
                   {uploadLoading && <span className="text-sm text-gray-500 animate-pulse">Cloudinary'ye yükleniyor...</span>}
                 </div>
@@ -658,31 +730,26 @@ export default function AdminPanel() {
                   <div className="mt-3 flex flex-wrap gap-2">
                     {form.images.map((img, i) => (
                       <div key={i} className="relative group">
-                        <img src={img} alt="" className="w-16 h-16 object-cover rounded-lg bg-gray-100" onError={(e) => { (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"%3E%3Crect fill="%23e5e7eb" width="64" height="64" rx="8"/%3E%3Ctext x="32" y="36" text-anchor="middle" font-size="20" fill="%239ca3af"%3E🖼️%3C/text%3E%3C/svg%3E'; }} />
+                        <img src={img} alt="" className="w-16 h-16 object-cover rounded-lg bg-gray-100"
+                          onError={(e) => { (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"%3E%3Crect fill="%23e5e7eb" width="64" height="64" rx="8"/%3E%3Ctext x="32" y="36" text-anchor="middle" font-size="20" fill="%239ca3af"%3E🖼️%3C/text%3E%3C/svg%3E'; }} />
                         <button onClick={() => removeImage(i)} className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">×</button>
                       </div>
                     ))}
                   </div>
                 )}
               </div>
-
             </div>
 
             <div className="px-6 pb-6 flex gap-3">
               <button onClick={closeForm} className="flex-1 py-3 border border-gray-200 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 transition-colors">İptal</button>
-              <button
-                onClick={handleSave}
-                disabled={!form.titleTr.trim() || !form.descTr.trim() || saving}
-                className="flex-1 flex items-center justify-center gap-2 py-3 bg-gray-900 hover:bg-gray-700 disabled:bg-gray-200 disabled:text-gray-400 text-white rounded-xl font-semibold transition-colors"
-              >
+              <button onClick={handleSave} disabled={!form.titleTr.trim() || !form.descTr.trim() || saving}
+                className="flex-1 flex items-center justify-center gap-2 py-3 bg-gray-900 hover:bg-gray-700 disabled:bg-gray-200 disabled:text-gray-400 text-white rounded-xl font-semibold transition-colors">
                 {saving ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <><Check className="w-4 h-4" />{editingId ? 'Güncelle' : 'Kaydet'}</>}
               </button>
             </div>
-
           </div>
         </div>
       )}
-
     </div>
   );
 }

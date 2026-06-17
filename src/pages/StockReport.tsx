@@ -7,7 +7,7 @@ import { Shield, TrendingUp, TrendingDown, Package, DollarSign, ArrowLeft, Trash
 export default function StockReport() {
   const { isAdmin } = useAuth();
   const { products } = useProducts();
-  const { sales, deleteSale } = useSales();
+  const { sales, deleteSale, stockRecords, deleteStockRecord } = useSales();
 
   if (!isAdmin) return <Navigate to="/" replace />;
 
@@ -20,6 +20,9 @@ export default function StockReport() {
   const totalSalesRevenue = sales.reduce((sum, s) => sum + s.totalRevenue, 0);
   const totalSalesProfit = sales.reduce((sum, s) => sum + s.totalProfit, 0);
   const totalSalesQty = sales.reduce((sum, s) => sum + s.quantity, 0);
+
+  const totalStockInQty = stockRecords.reduce((sum, r) => sum + r.quantity, 0);
+  const totalStockInCost = stockRecords.reduce((sum, r) => sum + r.totalCost, 0);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -144,7 +147,8 @@ export default function StockReport() {
                       <tr key={product.id} className="hover:bg-gray-50 transition-colors">
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <img src={product.images[0]} alt={product.title.tr} className="w-10 h-10 object-cover rounded-lg bg-gray-100 flex-shrink-0" onError={(e) => { (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"%3E%3Crect fill="%23e5e7eb" width="40" height="40" rx="6"/%3E%3C/svg%3E'; }} />
+                            <img src={product.images[0]} alt={product.title.tr} className="w-10 h-10 object-cover rounded-lg bg-gray-100 flex-shrink-0"
+                              onError={(e) => { (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"%3E%3Crect fill="%23e5e7eb" width="40" height="40" rx="6"/%3E%3C/svg%3E'; }} />
                             <div>
                               <p className="font-medium text-gray-900 text-sm">{product.title.tr}</p>
                               <p className="text-xs text-gray-400">{product.category} {soldQty > 0 && <span className="text-green-600 font-medium">· {soldQty} satıldı</span>}</p>
@@ -253,6 +257,65 @@ export default function StockReport() {
                     <td className="px-4 py-4"></td>
                     <td className="px-4 py-4 text-right font-bold text-blue-300">₺{totalSalesRevenue.toLocaleString('tr-TR')}</td>
                     <td className="px-4 py-4 text-right font-bold text-green-300">₺{totalSalesProfit.toLocaleString('tr-TR')}</td>
+                    <td className="px-4 py-4"></td>
+                    <td className="px-4 py-4"></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          )}
+        </div>
+
+        {/* Stok Giriş Geçmişi */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+          <div className="px-6 py-4 border-b border-gray-100">
+            <h2 className="font-bold text-gray-900">📥 Stok Giriş Geçmişi</h2>
+            <p className="text-sm text-gray-500">{stockRecords.length} kayıt</p>
+          </div>
+          {stockRecords.length === 0 ? (
+            <div className="px-6 py-12 text-center text-gray-400">
+              <Package className="w-12 h-12 mx-auto mb-3 opacity-30" />
+              <p>Henüz stok girişi yok.</p>
+              <p className="text-sm mt-1">Admin panelinden ürün kartındaki mavi 📦 butona tıklayarak stok girişi ekleyin.</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50 border-b border-gray-100">
+                  <tr>
+                    <th className="text-left px-6 py-3 text-xs font-semibold text-gray-500 uppercase">Ürün</th>
+                    <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Gelen Adet</th>
+                    <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Birim Maliyet</th>
+                    <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Toplam Maliyet</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Not</th>
+                    <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500 uppercase">Tarih</th>
+                    <th className="px-4 py-3"></th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {stockRecords.map(record => (
+                    <tr key={record.id} className="hover:bg-gray-50 transition-colors">
+                      <td className="px-6 py-4 font-medium text-gray-900 text-sm">{record.productTitle}</td>
+                      <td className="px-4 py-4 text-right text-sm font-semibold text-blue-600">{record.quantity} adet</td>
+                      <td className="px-4 py-4 text-right text-sm text-gray-600">₺{record.costPrice.toLocaleString('tr-TR')}</td>
+                      <td className="px-4 py-4 text-right text-sm font-semibold text-red-600">₺{record.totalCost.toLocaleString('tr-TR')}</td>
+                      <td className="px-4 py-4 text-sm text-gray-400">{record.note || '—'}</td>
+                      <td className="px-4 py-4 text-center text-xs text-gray-400">{record.date}</td>
+                      <td className="px-4 py-4 text-center">
+                        <button onClick={() => deleteStockRecord(record.id)} className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot className="bg-gray-900 text-white">
+                  <tr>
+                    <td className="px-6 py-4 font-bold">TOPLAM</td>
+                    <td className="px-4 py-4 text-right font-bold text-blue-300">{totalStockInQty} adet</td>
+                    <td className="px-4 py-4"></td>
+                    <td className="px-4 py-4 text-right font-bold text-red-300">₺{totalStockInCost.toLocaleString('tr-TR')}</td>
+                    <td className="px-4 py-4"></td>
                     <td className="px-4 py-4"></td>
                     <td className="px-4 py-4"></td>
                   </tr>

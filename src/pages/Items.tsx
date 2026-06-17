@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../i18n/translations';
 import { useProducts } from '../context/ProductsContext';
-import { categories } from '../data/itemsData';
 import FavoriteButton from '../components/FavoriteButton';
 import LoginModal from '../components/LoginModal';
 import { Search } from 'lucide-react';
@@ -15,7 +14,7 @@ export default function Items() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [showLoginModal, setShowLoginModal] = useState(false);
-
+const categories = ['Mobilya', 'Beyaz Eşya', 'Elektronik', 'Ofis Mobilyası', 'Yatak Odası Mobilyası', 'Oturma Grubu'];
   const shuffledItems = useMemo(() => {
     return [...products].sort(() => Math.random() - 0.5);
   }, [products]);

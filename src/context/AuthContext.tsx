@@ -55,6 +55,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
     return { error: error?.message ?? null };
   };
+
   const loginWithGoogle = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',

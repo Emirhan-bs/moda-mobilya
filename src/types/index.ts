@@ -87,3 +87,13 @@ export interface SaleRecord {
   totalProfit: number;
   date: string;
 }
+export interface StockRecord {
+  id: number;
+  productId: number;
+  productTitle: string;
+  quantity: number;
+  costPrice: number;
+  totalCost: number;
+  date: string;
+  note?: string;
+}
