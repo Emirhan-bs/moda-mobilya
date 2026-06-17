@@ -724,14 +724,60 @@ export default function AdminPanel() {
                   </div>
                 )}
                 {form.images.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {form.images.map((img, i) => (
-                      <div key={i} className="relative group">
-                        <img src={img} alt="" className="w-16 h-16 object-cover rounded-lg bg-gray-100"
-                          onError={(e) => { (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"%3E%3Crect fill="%23e5e7eb" width="64" height="64" rx="8"/%3E%3Ctext x="32" y="36" text-anchor="middle" font-size="20" fill="%239ca3af"%3E🖼️%3C/text%3E%3C/svg%3E'; }} />
-                        <button onClick={() => removeImage(i)} className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">×</button>
-                      </div>
-                    ))}
+                  <div className="mt-3">
+                    <p className="text-xs text-gray-400 mb-2">Resimleri sürükleyerek sırala. İlk resim kapak resmidir.</p>
+                    <div className="flex flex-wrap gap-2">
+                      {form.images.map((img, i) => (
+                        <div
+                          key={img + i}
+                          draggable
+                          onDragStart={(e) => {
+                            e.dataTransfer.setData('text/plain', String(i));
+                            (e.currentTarget as HTMLElement).style.opacity = '0.3';
+                          }}
+                          onDragEnd={(e) => {
+                            (e.currentTarget as HTMLElement).style.opacity = '1';
+                          }}
+                          onDragOver={(e) => {
+                            e.preventDefault();
+                            (e.currentTarget as HTMLElement).style.transform = 'scale(1.1)';
+                            (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 2px #8b5cf6';
+                          }}
+                          onDragLeave={(e) => {
+                            (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+                            (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+                          }}
+                          onDrop={(e) => {
+                            e.preventDefault();
+                            (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+                            (e.currentTarget as HTMLElement).style.boxShadow = 'none';
+                            const fromIndex = Number(e.dataTransfer.getData('text/plain'));
+                            const toIndex = i;
+                            if (fromIndex === toIndex) return;
+                            const newImages = [...form.images];
+                            const [moved] = newImages.splice(fromIndex, 1);
+                            newImages.splice(toIndex, 0, moved);
+                            setForm(f => ({ ...f, images: newImages }));
+                          }}
+                          className="relative group cursor-grab active:cursor-grabbing transition-transform duration-150"
+                          style={{ borderRadius: '0.5rem' }}
+                        >
+                          <img
+                            src={img}
+                            alt=""
+                            className={`w-16 h-16 object-cover rounded-lg bg-gray-100 pointer-events-none ${i === 0 ? 'ring-2 ring-purple-500' : ''}`}
+                            onError={(e) => { (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64"%3E%3Crect fill="%23e5e7eb" width="64" height="64" rx="8"/%3E%3Ctext x="32" y="36" text-anchor="middle" font-size="20" fill="%239ca3af"%3E🖼️%3C/text%3E%3C/svg%3E'; }}
+                          />
+                          {i === 0 && (
+                            <span className="absolute top-0 left-0 bg-purple-500 text-white text-xs px-1 rounded-tl-lg rounded-br-lg pointer-events-none">Kapak</span>
+                          )}
+                          <button
+                            onClick={() => removeImage(i)}
+                            className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-white text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                          >×</button>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
