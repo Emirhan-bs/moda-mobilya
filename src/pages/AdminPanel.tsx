@@ -45,13 +45,11 @@ async function autoTranslate(trText: string, _field: 'title' | 'description'): P
 
   await Promise.all(
     langs.map(async ({ key, code }) => {
-      const res = await fetch('https://moda-backend-cgut.onrender.com/api/translate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: trText, targetLang: code }),
-      });
+      const res = await fetch(
+        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(trText)}&langpair=tr|${code}`
+      );
       const data = await res.json();
-      results[key as keyof MultiLang] = data.translated;
+      results[key as keyof MultiLang] = data.responseData?.translatedText || trText;
     })
   );
 
